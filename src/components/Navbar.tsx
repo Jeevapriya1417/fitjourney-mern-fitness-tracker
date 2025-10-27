@@ -16,6 +16,7 @@ export default function Navbar() {
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About Us' },
     { href: '/plans', label: 'Plans' },
+    { href: '/goal-track', label: 'Goal Track' },
     { href: '/settings', label: 'Settings' },
   ];
 
