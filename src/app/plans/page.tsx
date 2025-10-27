@@ -44,7 +44,11 @@ export default function PlansPage() {
         recommendation = 'Consult a healthcare provider. Focus on gradual weight loss through diet and exercise.';
       }
 
-      setResult({ bmi: parseFloat(bmi.toFixed(1)), category, recommendation });
+      const bmiResult = { bmi: parseFloat(bmi.toFixed(1)), category, recommendation };
+      setResult(bmiResult);
+      
+      // Save BMI result to localStorage for Goal Track page
+      localStorage.setItem('fitjourney_bmi_result', JSON.stringify(bmiResult));
     }
   };
 
