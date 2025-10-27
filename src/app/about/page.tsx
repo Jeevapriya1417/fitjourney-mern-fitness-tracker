@@ -1,9 +1,8 @@
 "use client";
 
 import Navbar from '@/components/Navbar';
-import AIAssistant from '@/components/AIAssistant';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Users, Award, Heart } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dumbbell, Target, TrendingUp, Users } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -79,7 +78,7 @@ export default function AboutPage() {
 
               <Card className="bg-[#5F9EA0] border-none text-white">
                 <CardHeader>
-                  <Award className="h-12 w-12 mb-4" />
+                  <TrendingUp className="h-12 w-12 mb-4" />
                   <CardTitle className="text-white text-xl">Excellence</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -91,7 +90,7 @@ export default function AboutPage() {
 
               <Card className="bg-[#5F9EA0] border-none text-white">
                 <CardHeader>
-                  <Heart className="h-12 w-12 mb-4" />
+                  <Dumbbell className="h-12 w-12 mb-4" />
                   <CardTitle className="text-white text-xl">Wellness</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -154,7 +153,6 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-      <AIAssistant />
     </>
   );
 }

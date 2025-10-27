@@ -16,56 +16,54 @@ export default function AIAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm your AI fitness assistant. I can help you with fitness questions, nutrition advice, workout recommendations, and more. How can I help you today?"
+      content: "Hello! I'm your AI fitness assistant powered by Gemini. I can help you with fitness questions, nutrition advice, workout recommendations, and more. How can I help you today?"
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSend = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
-    // Simulate AI response with fitness-related knowledge
-    setTimeout(() => {
-      const response = generateFitnessResponse(input);
-      setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+    try {
+      // Call our API route to interact with Gemini
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: input,
+          conversationHistory: messages.slice(-6), // Send last 6 messages for context
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const data = await response.json();
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: data.response,
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error('Error calling chat API:', error);
+      const errorMessage: Message = {
+        role: 'assistant',
+        content: "I apologize, but I'm having trouble connecting right now. Please try again in a moment.",
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
-  };
-
-  const generateFitnessResponse = (query: string): string => {
-    const lowerQuery = query.toLowerCase();
-    
-    if (lowerQuery.includes('diet') || lowerQuery.includes('nutrition') || lowerQuery.includes('eat')) {
-      return "For a balanced diet, focus on:\n• Lean proteins (chicken, fish, tofu)\n• Complex carbs (brown rice, oats, quinoa)\n• Healthy fats (avocado, nuts, olive oil)\n• Plenty of vegetables and fruits\n• Stay hydrated with 8-10 glasses of water daily\n\nWould you like specific meal suggestions?";
     }
-    
-    if (lowerQuery.includes('workout') || lowerQuery.includes('exercise') || lowerQuery.includes('training')) {
-      return "A well-rounded workout routine should include:\n• Strength training (3-4x per week)\n• Cardio (150 min moderate or 75 min intense weekly)\n• Flexibility work (yoga, stretching)\n• Rest days for recovery\n\nWhat's your fitness goal? Weight loss, muscle gain, or general fitness?";
-    }
-    
-    if (lowerQuery.includes('weight loss') || lowerQuery.includes('lose weight')) {
-      return "For healthy weight loss:\n• Create a caloric deficit (300-500 calories below maintenance)\n• Combine cardio and strength training\n• Focus on whole foods\n• Get 7-9 hours of sleep\n• Stay consistent!\n\nAim for 0.5-1 kg per week for sustainable results.";
-    }
-    
-    if (lowerQuery.includes('muscle') || lowerQuery.includes('gain')) {
-      return "To build muscle:\n• Progressive overload in training\n• Eat in a slight caloric surplus\n• Consume 1.6-2.2g protein per kg body weight\n• Focus on compound exercises (squats, deadlifts, bench press)\n• Get adequate rest (7-9 hours sleep)\n\nPatience and consistency are key!";
-    }
-    
-    if (lowerQuery.includes('bmi') || lowerQuery.includes('calculator')) {
-      return "You can use our BMI Calculator in the Plans section! It will calculate your Body Mass Index and provide personalized diet and workout recommendations based on your results. Just navigate to the Plans page to get started.";
-    }
-
-    if (lowerQuery.includes('progress') || lowerQuery.includes('track')) {
-      return "Tracking your progress is crucial! Visit the Progress Tracker page to:\n• Log daily weight and measurements\n• View your fitness journey over time\n• Set and track goals\n• Visualize your improvements with charts\n\nConsistent tracking keeps you motivated!";
-    }
-    
-    return "I'm here to help with fitness, nutrition, and workout advice! You can ask me about:\n• Diet and meal planning\n• Workout routines\n• Weight loss strategies\n• Muscle building tips\n• Using our BMI calculator\n• Progress tracking\n\nWhat would you like to know?";
   };
 
   return (
@@ -140,6 +138,7 @@ export default function AIAssistant() {
                 }}
                 placeholder="Ask me anything about fitness..."
                 className="flex-1 min-h-[40px] max-h-[100px] resize-none"
+                disabled={isLoading}
               />
               <Button
                 onClick={handleSend}

@@ -10,7 +10,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dumbbell } from 'lucide-react';
 import Navbar from '@/components/Navbar';
-import AIAssistant from '@/components/AIAssistant';
 
 export default function RegisterPage() {
   const [name, setName] = useState('');
@@ -151,7 +150,6 @@ export default function RegisterPage() {
           </CardContent>
         </Card>
       </div>
-      <AIAssistant />
     </>
   );
 }

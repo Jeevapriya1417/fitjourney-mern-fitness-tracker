@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Activity, Target, TrendingUp, Brain, Calculator, Settings } from 'lucide-react';
 import Navbar from '@/components/Navbar';
-import AIAssistant from '@/components/AIAssistant';
 
 export default function Home() {
   return (
@@ -214,7 +213,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-      <AIAssistant />
     </>
   );
 }

@@ -10,7 +10,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dumbbell } from 'lucide-react';
 import Navbar from '@/components/Navbar';
-import AIAssistant from '@/components/AIAssistant';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -113,7 +112,6 @@ export default function LoginPage() {
           </CardContent>
         </Card>
       </div>
-      <AIAssistant />
     </>
   );
 }
