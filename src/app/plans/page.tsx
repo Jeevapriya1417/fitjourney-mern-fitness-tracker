@@ -218,7 +218,7 @@ export default function PlansPage() {
         {/* BMI Calculator */}
         <section className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
-            <Card className="border-2 border-[#5F9EA0]">
+            <Card className="border-2 border-[#5F9EA0] transition-all duration-300 hover:shadow-2xl hover:shadow-[#5F9EA0]/30">
               <CardHeader className="bg-[#5F9EA0] text-white">
                 <div className="flex items-center space-x-3">
                   <Calculator className="h-8 w-8" />
@@ -240,7 +240,7 @@ export default function PlansPage() {
                       placeholder="170"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="mt-2"
+                      className="mt-2 transition-all duration-300 hover:border-[#5F9EA0] focus:ring-2 focus:ring-[#5F9EA0]"
                     />
                   </div>
                   <div>
@@ -251,7 +251,7 @@ export default function PlansPage() {
                       placeholder="70"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
-                      className="mt-2"
+                      className="mt-2 transition-all duration-300 hover:border-[#5F9EA0] focus:ring-2 focus:ring-[#5F9EA0]"
                     />
                   </div>
                   <div>
@@ -262,22 +262,22 @@ export default function PlansPage() {
                       placeholder="25"
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
-                      className="mt-2"
+                      className="mt-2 transition-all duration-300 hover:border-[#5F9EA0] focus:ring-2 focus:ring-[#5F9EA0]"
                     />
                   </div>
                 </div>
                 <Button
                   onClick={calculateBMI}
-                  className="w-full bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                  className="w-full bg-[#5F9EA0] hover:bg-[#4A8A8D] hover:scale-105 hover:shadow-xl text-white transition-all duration-300"
                   disabled={!height || !weight || !age}
                 >
                   Calculate BMI
                 </Button>
 
                 {result && (
-                  <div className="mt-6 p-6 bg-gray-50 rounded-lg">
+                  <div className="mt-6 p-6 bg-gray-50 rounded-lg transition-all duration-500 hover:bg-gray-100 hover:shadow-lg">
                     <div className="text-center mb-4">
-                      <div className="text-5xl font-bold text-[#5F9EA0] mb-2">{result.bmi}</div>
+                      <div className="text-5xl font-bold text-[#5F9EA0] mb-2 transition-all duration-300 hover:scale-110 inline-block cursor-pointer">{result.bmi}</div>
                       <div className="text-2xl font-semibold text-black mb-2">{result.category}</div>
                       <p className="text-gray-700">{result.recommendation}</p>
                     </div>
@@ -301,10 +301,10 @@ export default function PlansPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {dietPlans.map((plan, index) => (
-                  <Card key={index} className="bg-[#5F9EA0] border-none text-white">
+                  <Card key={index} className="bg-[#5F9EA0] border-none text-white transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#5F9EA0]/50 hover:-translate-y-2 cursor-pointer group">
                     <CardHeader>
                       <div className="flex items-center space-x-3 mb-2">
-                        {plan.icon}
+                        <div className="transition-all duration-500 group-hover:scale-110 group-hover:rotate-12">{plan.icon}</div>
                         <CardTitle className="text-white text-2xl">{plan.title}</CardTitle>
                       </div>
                       <CardDescription className="text-gray-100">
@@ -314,8 +314,8 @@ export default function PlansPage() {
                     <CardContent>
                       <ul className="space-y-2">
                         {plan.details.map((detail, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-white mr-2">•</span>
+                          <li key={i} className="flex items-start group/item">
+                            <span className="text-white mr-2 transition-all duration-300 group-hover/item:scale-125">•</span>
                             <span className="text-gray-100">{detail}</span>
                           </li>
                         ))}
@@ -339,9 +339,9 @@ export default function PlansPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {workoutPlan.schedule.map((day, index) => (
-                  <Card key={index} className="border-2 border-[#5F9EA0]">
+                  <Card key={index} className="border-2 border-[#5F9EA0] transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#5F9EA0]/40 hover:-translate-y-2 cursor-pointer group">
                     <CardHeader>
-                      <CardTitle className="text-[#5F9EA0] text-xl">{day.day}</CardTitle>
+                      <CardTitle className="text-[#5F9EA0] text-xl transition-all duration-300 group-hover:scale-105">{day.day}</CardTitle>
                       <CardDescription className="text-black font-semibold">
                         {day.focus}
                       </CardDescription>

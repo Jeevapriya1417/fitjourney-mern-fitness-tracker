@@ -94,7 +94,7 @@ export default function ProgressPage() {
               </div>
               <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger asChild>
-                  <Button className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white">
+                  <Button className="bg-[#5F9EA0] hover:bg-[#4A8A8D] hover:scale-110 hover:shadow-xl text-white transition-all duration-300">
                     <Plus className="h-5 w-5 mr-2" />
                     Log Progress
                   </Button>
@@ -114,7 +114,7 @@ export default function ProgressPage() {
                         type="date"
                         value={newEntry.date}
                         onChange={(e) => setNewEntry({ ...newEntry, date: e.target.value })}
-                        className="mt-2"
+                        className="mt-2 transition-all duration-300 hover:border-[#5F9EA0]"
                       />
                     </div>
                     <div>
@@ -126,7 +126,7 @@ export default function ProgressPage() {
                         placeholder="70.5"
                         value={newEntry.weight}
                         onChange={(e) => setNewEntry({ ...newEntry, weight: e.target.value })}
-                        className="mt-2"
+                        className="mt-2 transition-all duration-300 hover:border-[#5F9EA0]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -139,7 +139,7 @@ export default function ProgressPage() {
                           placeholder="80"
                           value={newEntry.waist}
                           onChange={(e) => setNewEntry({ ...newEntry, waist: e.target.value })}
-                          className="mt-2"
+                          className="mt-2 transition-all duration-300 hover:border-[#5F9EA0]"
                         />
                       </div>
                       <div>
@@ -151,7 +151,7 @@ export default function ProgressPage() {
                           placeholder="95"
                           value={newEntry.chest}
                           onChange={(e) => setNewEntry({ ...newEntry, chest: e.target.value })}
-                          className="mt-2"
+                          className="mt-2 transition-all duration-300 hover:border-[#5F9EA0]"
                         />
                       </div>
                     </div>
@@ -162,12 +162,12 @@ export default function ProgressPage() {
                         placeholder="Feeling great today!"
                         value={newEntry.notes}
                         onChange={(e) => setNewEntry({ ...newEntry, notes: e.target.value })}
-                        className="mt-2"
+                        className="mt-2 transition-all duration-300 hover:border-[#5F9EA0]"
                       />
                     </div>
                     <Button
                       onClick={saveEntry}
-                      className="w-full bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                      className="w-full bg-[#5F9EA0] hover:bg-[#4A8A8D] hover:scale-105 hover:shadow-xl text-white transition-all duration-300"
                       disabled={!newEntry.weight}
                     >
                       Save Entry
@@ -184,10 +184,10 @@ export default function ProgressPage() {
           <section className="py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="bg-[#5F9EA0] border-none text-white">
+                <Card className="bg-[#5F9EA0] border-none text-white transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#5F9EA0]/50 hover:-translate-y-2 cursor-pointer group">
                   <CardHeader>
                     <div className="flex items-center space-x-3">
-                      <Weight className="h-8 w-8" />
+                      <Weight className="h-8 w-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
                       <CardTitle className="text-white">Current Weight</CardTitle>
                     </div>
                   </CardHeader>
@@ -201,10 +201,10 @@ export default function ProgressPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-[#5F9EA0] border-none text-white">
+                <Card className="bg-[#5F9EA0] border-none text-white transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#5F9EA0]/50 hover:-translate-y-2 cursor-pointer group">
                   <CardHeader>
                     <div className="flex items-center space-x-3">
-                      <Calendar className="h-8 w-8" />
+                      <Calendar className="h-8 w-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
                       <CardTitle className="text-white">Total Entries</CardTitle>
                     </div>
                   </CardHeader>
@@ -214,10 +214,10 @@ export default function ProgressPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-[#5F9EA0] border-none text-white">
+                <Card className="bg-[#5F9EA0] border-none text-white transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#5F9EA0]/50 hover:-translate-y-2 cursor-pointer group">
                   <CardHeader>
                     <div className="flex items-center space-x-3">
-                      <TrendingUp className="h-8 w-8" />
+                      <TrendingUp className="h-8 w-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
                       <CardTitle className="text-white">Progress</CardTitle>
                     </div>
                   </CardHeader>
@@ -237,7 +237,7 @@ export default function ProgressPage() {
         {entries.length > 1 ? (
           <section className="py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-              <Card>
+              <Card className="transition-all duration-300 hover:shadow-2xl hover:shadow-[#5F9EA0]/20">
                 <CardHeader>
                   <CardTitle className="text-black text-2xl">Weight Progress</CardTitle>
                   <CardDescription className="text-gray-600">
@@ -259,7 +259,7 @@ export default function ProgressPage() {
               </Card>
 
               {entries.some(e => e.waist || e.chest) && (
-                <Card className="mt-6">
+                <Card className="mt-6 transition-all duration-300 hover:shadow-2xl hover:shadow-[#5F9EA0]/20">
                   <CardHeader>
                     <CardTitle className="text-black text-2xl">Body Measurements</CardTitle>
                     <CardDescription className="text-gray-600">
@@ -290,9 +290,9 @@ export default function ProgressPage() {
         ) : entries.length === 1 ? (
           <section className="py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto text-center">
-              <Card className="bg-gray-50">
+              <Card className="bg-gray-50 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
                 <CardContent className="py-12">
-                  <TrendingUp className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4" />
+                  <TrendingUp className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4 transition-all duration-300 hover:scale-110 hover:rotate-12" />
                   <h3 className="text-2xl font-bold text-black mb-2">Keep Tracking!</h3>
                   <p className="text-gray-600">
                     Log one more entry to see your progress charts
@@ -304,16 +304,16 @@ export default function ProgressPage() {
         ) : (
           <section className="py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto text-center">
-              <Card className="bg-gray-50">
+              <Card className="bg-gray-50 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
                 <CardContent className="py-12">
-                  <Calendar className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4" />
+                  <Calendar className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4 transition-all duration-300 hover:scale-110 hover:rotate-12" />
                   <h3 className="text-2xl font-bold text-black mb-2">Start Tracking Your Progress</h3>
                   <p className="text-gray-600 mb-6">
                     Log your first entry to begin visualizing your fitness journey
                   </p>
                   <Button
                     onClick={() => setIsOpen(true)}
-                    className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                    className="bg-[#5F9EA0] hover:bg-[#4A8A8D] hover:scale-110 hover:shadow-xl text-white transition-all duration-300"
                   >
                     <Plus className="h-5 w-5 mr-2" />
                     Add First Entry
@@ -331,7 +331,7 @@ export default function ProgressPage() {
               <h2 className="text-3xl font-bold text-black mb-6">Recent Entries</h2>
               <div className="space-y-4">
                 {[...entries].reverse().slice(0, 5).map((entry, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:border-[#5F9EA0] cursor-pointer">
                     <CardContent className="py-4">
                       <div className="flex justify-between items-center">
                         <div>
