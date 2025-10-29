@@ -29,12 +29,12 @@ export default function Home() {
             {!isAuthenticated && (
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/register">
-                  <Button size="lg" className="bg-[#5F9EA0] hover:bg-[#4A7C7E] text-white px-10 py-7 text-lg font-bold">
+                  <Button size="lg" className="bg-[#5F9EA0] hover:bg-[#4A7C7E] text-white px-10 py-7 text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
                     Get Started Free
                   </Button>
                 </Link>
                 <Link href="/plans">
-                  <Button size="lg" variant="outline" className="border-2 border-[#5F9EA0] text-[#5F9EA0] hover:bg-[#5F9EA0] hover:text-white px-10 py-7 text-lg font-bold">
+                  <Button size="lg" variant="outline" className="border-2 border-[#5F9EA0] text-[#5F9EA0] hover:bg-[#5F9EA0] hover:text-white px-10 py-7 text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
                     Explore Plans
                   </Button>
                 </Link>
@@ -57,10 +57,10 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <Calculator className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <Calculator className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">BMI Calculator</CardTitle>
                   <CardDescription className="text-white/90">
@@ -75,10 +75,10 @@ export default function Home() {
               </Card>
 
               {/* Feature 2 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <Target className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <Target className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">Workout Plans</CardTitle>
                   <CardDescription className="text-white/90">
@@ -93,10 +93,10 @@ export default function Home() {
               </Card>
 
               {/* Feature 3 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <Activity className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <Activity className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">Diet Plans</CardTitle>
                   <CardDescription className="text-white/90">
@@ -111,10 +111,10 @@ export default function Home() {
               </Card>
 
               {/* Feature 4 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <TrendingUp className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <TrendingUp className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">Progress Tracking</CardTitle>
                   <CardDescription className="text-white/90">
@@ -129,10 +129,10 @@ export default function Home() {
               </Card>
 
               {/* Feature 5 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <Brain className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <Brain className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">AI Assistant</CardTitle>
                   <CardDescription className="text-white/90">
@@ -147,10 +147,10 @@ export default function Home() {
               </Card>
 
               {/* Feature 6 */}
-              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white hover:shadow-lg transition-shadow">
+              <Card className="bg-[#5F9EA0] border-[#5F9EA0] text-white transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:-translate-y-2 group cursor-pointer">
                 <CardHeader>
-                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-                    <Settings className="h-8 w-8" />
+                  <div className="h-16 w-16 rounded-lg bg-white/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white/30">
+                    <Settings className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <CardTitle className="text-white text-2xl font-bold">Profile Management</CardTitle>
                   <CardDescription className="text-white/90">
@@ -215,12 +215,13 @@ export default function Home() {
                   </li>
                 </ul>
               </div>
-              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl group cursor-pointer">
                 <img
                   src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80"
                   alt="Fitness Training"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </div>
           </div>
@@ -237,7 +238,7 @@ export default function Home() {
                 Join thousands of users who are transforming their lives with FITJOURNEY
               </p>
               <Link href="/register">
-                <Button size="lg" className="bg-white text-[#5F9EA0] hover:bg-gray-100 px-10 py-7 text-lg font-bold">
+                <Button size="lg" className="bg-white text-[#5F9EA0] hover:bg-gray-100 px-10 py-7 text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-xl">
                   Create Free Account
                 </Button>
               </Link>
