@@ -286,8 +286,8 @@ export default function GoalTrackPage() {
       value: goals.weightGoal,
       unit: 'kg',
       description: 'Tasks to help you reach your target weight',
-      color: 'bg-[#5F9EA0]',
-      lightColor: 'bg-[#5F9EA0]/10'
+      color: 'bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D]',
+      lightColor: 'bg-gradient-to-br from-[#5F9EA0]/10 to-[#4A8A8D]/10'
     },
     {
       key: 'weeklyWorkoutTarget' as keyof GoalTasks,
@@ -295,8 +295,8 @@ export default function GoalTrackPage() {
       value: goals.weeklyWorkoutTarget,
       unit: 'workouts/week',
       description: 'Tasks to complete your workout targets',
-      color: 'bg-[#5F9EA0]',
-      lightColor: 'bg-[#5F9EA0]/10'
+      color: 'bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D]',
+      lightColor: 'bg-gradient-to-br from-[#5F9EA0]/10 to-[#4A8A8D]/10'
     },
     {
       key: 'dailyCalorieGoal' as keyof GoalTasks,
@@ -304,8 +304,8 @@ export default function GoalTrackPage() {
       value: goals.dailyCalorieGoal,
       unit: 'calories/day',
       description: 'Tasks to manage your daily calorie intake',
-      color: 'bg-[#5F9EA0]',
-      lightColor: 'bg-[#5F9EA0]/10'
+      color: 'bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D]',
+      lightColor: 'bg-gradient-to-br from-[#5F9EA0]/10 to-[#4A8A8D]/10'
     }
   ];
 
@@ -322,7 +322,9 @@ export default function GoalTrackPage() {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center space-x-4 mb-4">
-                  <Target className="h-12 w-12 text-[#5F9EA0]" />
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-[#5F9EA0] to-[#4A8A8D]">
+                    <Target className="h-8 w-8 text-white transition-all duration-300 hover:scale-110 hover:rotate-12" />
+                  </div>
                   <h1 className="text-5xl font-bold text-black">Goal Tracking</h1>
                 </div>
                 <p className="text-xl text-gray-700">
@@ -337,7 +339,7 @@ export default function GoalTrackPage() {
               {hasAnyGoals && bmiResult && (
                 <Button
                   onClick={generatePlanTasks}
-                  className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                  className="bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] hover:from-[#4A8A8D] hover:to-[#3D7A7D] text-white hover:shadow-lg transition-all duration-300"
                 >
                   <Sparkles className="h-4 w-4 mr-2" />
                   Generate Plan Tasks
@@ -351,23 +353,23 @@ export default function GoalTrackPage() {
         <section className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {!hasAnyGoals ? (
-              <Card className="text-center py-12">
+              <Card className="text-center py-12 backdrop-blur-sm bg-white/90 border-2 border-gray-100 transition-all duration-300 hover:shadow-2xl">
                 <CardContent>
                   <Target className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                   <h2 className="text-2xl font-bold text-black mb-2">No Goals Set</h2>
                   <p className="text-gray-600 mb-6">
-                    Start by setting your fitness goals in the Settings page
+                    Start by setting your fitness goals in the Set Goals page
                   </p>
                   <Button 
-                    onClick={() => window.location.href = '/settings'}
-                    className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                    onClick={() => window.location.href = '/set-goals'}
+                    className="bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] hover:from-[#4A8A8D] hover:to-[#3D7A7D] text-white hover:shadow-lg transition-all duration-300"
                   >
-                    Go to Settings
+                    Go to Set Goals
                   </Button>
                 </CardContent>
               </Card>
             ) : !bmiResult ? (
-              <Card className="text-center py-12 mb-8">
+              <Card className="text-center py-12 mb-8 backdrop-blur-sm bg-white/90 border-2 border-gray-100 transition-all duration-300 hover:shadow-2xl">
                 <CardContent>
                   <Sparkles className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4" />
                   <h2 className="text-2xl font-bold text-black mb-2">Calculate Your BMI First</h2>
@@ -376,14 +378,14 @@ export default function GoalTrackPage() {
                   </p>
                   <Button 
                     onClick={() => window.location.href = '/plans'}
-                    className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                    className="bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] hover:from-[#4A8A8D] hover:to-[#3D7A7D] text-white hover:shadow-lg transition-all duration-300"
                   >
                     Go to Plans
                   </Button>
                 </CardContent>
               </Card>
             ) : !hasAnyTasks ? (
-              <Card className="text-center py-12 mb-8">
+              <Card className="text-center py-12 mb-8 backdrop-blur-sm bg-white/90 border-2 border-gray-100 transition-all duration-300 hover:shadow-2xl">
                 <CardContent>
                   <Sparkles className="h-16 w-16 text-[#5F9EA0] mx-auto mb-4" />
                   <h2 className="text-2xl font-bold text-black mb-2">Generate Your Action Plan</h2>
@@ -392,7 +394,7 @@ export default function GoalTrackPage() {
                   </p>
                   <Button 
                     onClick={generatePlanTasks}
-                    className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                    className="bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] hover:from-[#4A8A8D] hover:to-[#3D7A7D] text-white hover:shadow-lg transition-all duration-300"
                   >
                     <Sparkles className="h-4 w-4 mr-2" />
                     Generate Plan Tasks
@@ -413,8 +415,8 @@ export default function GoalTrackPage() {
                   const completedCount = tasks.filter(t => t.completed).length;
 
                   return (
-                    <Card key={section.key} className="border-2 border-gray-200">
-                      <CardHeader className={`${section.lightColor}`}>
+                    <Card key={section.key} className="backdrop-blur-sm bg-white/90 border-2 border-gray-100 transition-all duration-300 hover:shadow-2xl hover:border-[#5F9EA0]/30">
+                      <CardHeader className={`${section.lightColor} backdrop-blur-sm`}>
                         <div className="flex items-center justify-between">
                           <div>
                             <CardTitle className="text-black text-2xl mb-1">
@@ -425,7 +427,7 @@ export default function GoalTrackPage() {
                             </CardDescription>
                           </div>
                           <div className="text-right">
-                            <div className="text-3xl font-bold text-[#5F9EA0]">
+                            <div className="text-3xl font-bold bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] bg-clip-text text-transparent">
                               {completionPercentage}%
                             </div>
                             <div className="text-sm text-gray-600">
@@ -435,9 +437,9 @@ export default function GoalTrackPage() {
                         </div>
                         
                         {/* Progress Bar */}
-                        <div className="w-full bg-gray-200 rounded-full h-3 mt-4">
+                        <div className="w-full bg-gray-200 rounded-full h-3 mt-4 overflow-hidden">
                           <div 
-                            className={`${section.color} h-3 rounded-full transition-all duration-300`}
+                            className={`${section.color} h-3 rounded-full transition-all duration-500 hover:shadow-lg`}
                             style={{ width: `${completionPercentage}%` }}
                           ></div>
                         </div>
@@ -460,11 +462,11 @@ export default function GoalTrackPage() {
                                 addTask(section.key);
                               }
                             }}
-                            className="flex-1"
+                            className="flex-1 transition-all duration-300 hover:border-[#5F9EA0] focus:ring-2 focus:ring-[#5F9EA0]"
                           />
                           <Button
                             onClick={() => addTask(section.key)}
-                            className="bg-[#5F9EA0] hover:bg-[#4A8A8D] text-white"
+                            className="bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] hover:from-[#4A8A8D] hover:to-[#3D7A7D] text-white hover:shadow-lg transition-all duration-300"
                           >
                             <Plus className="h-4 w-4 mr-1" />
                             Add
@@ -476,10 +478,10 @@ export default function GoalTrackPage() {
                           {tasks.map((task) => (
                             <div
                               key={task.id}
-                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all ${
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all duration-300 ${
                                 task.completed
-                                  ? 'bg-green-50 border-green-200'
-                                  : 'bg-white border-gray-200 hover:border-[#5F9EA0]'
+                                  ? 'bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 hover:shadow-md'
+                                  : 'backdrop-blur-sm bg-white/80 border-gray-200 hover:border-[#5F9EA0] hover:shadow-md'
                               }`}
                             >
                               <button
@@ -505,7 +507,7 @@ export default function GoalTrackPage() {
 
                               <button
                                 onClick={() => deleteTask(section.key, task.id)}
-                                className="flex-shrink-0 text-red-500 hover:text-red-700 transition-colors"
+                                className="flex-shrink-0 text-red-500 hover:text-red-700 transition-all duration-300 hover:scale-110"
                               >
                                 <Trash2 className="h-5 w-5" />
                               </button>
