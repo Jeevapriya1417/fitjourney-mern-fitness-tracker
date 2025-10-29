@@ -5,10 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Activity, Target, TrendingUp, Brain, Calculator, Settings } from 'lucide-react';
 import Navbar from '@/components/Navbar';
+import StreakCard from '@/components/StreakCard';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Home() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <>
@@ -42,6 +43,19 @@ export default function Home() {
             )}
           </div>
         </section>
+
+        {/* Streak Card for Authenticated Users */}
+        {isAuthenticated && user && (
+          <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+              <div className="mb-6 text-center">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">Your Progress</h2>
+                <p className="text-gray-600">Keep your streak alive and unlock achievements!</p>
+              </div>
+              <StreakCard userId={user.id} />
+            </div>
+          </section>
+        )}
 
         {/* Features Section */}
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">

@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import AIAssistant from '@/components/AIAssistant';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import StreakCard from '@/components/StreakCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Target, Plus, Trash2, CheckCircle2, Circle, Sparkles } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface Task {
   id: string;
@@ -35,6 +38,7 @@ interface BMIResult {
 }
 
 export default function GoalTrackPage() {
+  const { user } = useAuth();
   const [goals, setGoals] = useState<Goals>({
     weightGoal: '',
     weeklyWorkoutTarget: '',
@@ -54,6 +58,65 @@ export default function GoalTrackPage() {
   });
 
   const [bmiResult, setBmiResult] = useState<BMIResult | null>(null);
+
+  // Add streak update function for goal completion
+  const updateStreakForGoal = async () => {
+    if (!user) return;
+    
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Log activity
+      await fetch('/api/activities/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          activityType: 'goal_set',
+          activityDate: today,
+          metadata: { 
+            goals: {
+              weight: goals.weightGoal,
+              workout: goals.weeklyWorkoutTarget,
+              calorie: goals.dailyCalorieGoal
+            }
+          }
+        })
+      });
+      
+      // Check streak
+      const streakResponse = await fetch('/api/streaks/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, activityDate: today })
+      });
+      
+      if (streakResponse.ok) {
+        const streakData = await streakResponse.json();
+        
+        // Check for achievements
+        await fetch('/api/achievements/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.id })
+        }).then(res => res.json()).then(data => {
+          if (data.unlockedAchievements && data.unlockedAchievements.length > 0) {
+            data.unlockedAchievements.forEach((achievement: any) => {
+              toast.success(`🎉 Achievement Unlocked: ${achievement.name}!`, {
+                description: `+${achievement.points} points`
+              });
+            });
+          }
+        });
+        
+        if (streakData.currentStreak > 1) {
+          toast.success(`🔥 ${streakData.currentStreak} day streak!`);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating streak:', error);
+    }
+  };
 
   // Load goals, tasks, and BMI results from localStorage
   useEffect(() => {
@@ -264,6 +327,14 @@ export default function GoalTrackPage() {
         task.id === taskId ? { ...task, completed: !task.completed } : task
       )
     }));
+    
+    // Update streak when task is completed
+    if (user) {
+      const task = goalTasks[goalType].find(t => t.id === taskId);
+      if (task && !task.completed) {
+        updateStreakForGoal();
+      }
+    }
   };
 
   const deleteTask = (goalType: keyof GoalTasks, taskId: string) => {
@@ -348,6 +419,15 @@ export default function GoalTrackPage() {
             </div>
           </div>
         </section>
+
+        {/* Streak Card Section */}
+        {user && hasAnyGoals && (
+          <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+              <StreakCard userId={user.id} />
+            </div>
+          </section>
+        )}
 
         {/* Main Content */}
         <section className="py-12 px-4 sm:px-6 lg:px-8">

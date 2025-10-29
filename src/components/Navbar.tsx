@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { Dumbbell, Menu, X } from 'lucide-react';
+import { Dumbbell, Menu, X, Trophy } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Navbar() {
@@ -18,6 +18,7 @@ export default function Navbar() {
     { href: '/plans', label: 'Plans' },
     { href: '/set-goals', label: 'Set Goals' },
     { href: '/goal-track', label: 'Goal Track' },
+    { href: '/achievements', label: 'Achievements', icon: Trophy },
     { href: '/settings', label: 'Settings' },
   ];
 
@@ -33,19 +34,23 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-base font-medium transition-all duration-300 ${
-                  pathname === link.href
-                    ? 'text-transparent bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] bg-clip-text font-bold'
-                    : 'text-black hover:text-[#5F9EA0]'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-base font-medium transition-all duration-300 flex items-center gap-1 ${
+                    pathname === link.href
+                      ? 'text-transparent bg-gradient-to-r from-[#5F9EA0] to-[#4A8A8D] bg-clip-text font-bold'
+                      : 'text-black hover:text-[#5F9EA0]'
+                  }`}
+                >
+                  {Icon && <Icon className="h-4 w-4" />}
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Auth Buttons */}
@@ -92,18 +97,22 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`block text-base font-medium ${
-                  pathname === link.href ? 'text-[#5F9EA0] font-bold' : 'text-black'
-                }`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`block text-base font-medium flex items-center gap-2 ${
+                    pathname === link.href ? 'text-[#5F9EA0] font-bold' : 'text-black'
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {Icon && <Icon className="h-4 w-4" />}
+                  {link.label}
+                </Link>
+              );
+            })}
             <div className="pt-4 space-y-2">
               {isAuthenticated ? (
                 <>

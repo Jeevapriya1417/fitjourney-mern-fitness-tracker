@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import AIAssistant from '@/components/AIAssistant';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import StreakCard from '@/components/StreakCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Plus, TrendingUp, Calendar, Weight, Ruler } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 
 interface ProgressEntry {
   date: string;
@@ -21,6 +24,7 @@ interface ProgressEntry {
 }
 
 export default function ProgressPage() {
+  const { user } = useAuth();
   const [entries, setEntries] = useState<ProgressEntry[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [newEntry, setNewEntry] = useState({
@@ -38,6 +42,59 @@ export default function ProgressPage() {
       setEntries(JSON.parse(saved));
     }
   }, []);
+
+  // Add streak update function
+  const updateStreak = async () => {
+    if (!user) return;
+    
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Log activity
+      await fetch('/api/activities/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          activityType: 'progress_logged',
+          activityDate: today,
+          metadata: { entries: entries.length }
+        })
+      });
+      
+      // Check streak
+      const streakResponse = await fetch('/api/streaks/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, activityDate: today })
+      });
+      
+      if (streakResponse.ok) {
+        const streakData = await streakResponse.json();
+        
+        // Check for achievements
+        await fetch('/api/achievements/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: user.id })
+        }).then(res => res.json()).then(data => {
+          if (data.unlockedAchievements && data.unlockedAchievements.length > 0) {
+            data.unlockedAchievements.forEach((achievement: any) => {
+              toast.success(`🎉 Achievement Unlocked: ${achievement.name}!`, {
+                description: `+${achievement.points} points`
+              });
+            });
+          }
+        });
+        
+        if (streakData.currentStreak > 1) {
+          toast.success(`🔥 ${streakData.currentStreak} day streak!`);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating streak:', error);
+    }
+  };
 
   const saveEntry = () => {
     if (!newEntry.weight) return;
@@ -65,6 +122,9 @@ export default function ProgressPage() {
       notes: ''
     });
     setIsOpen(false);
+    
+    // Update streak after saving entry
+    updateStreak();
   };
 
   const chartData = entries.map(entry => ({
@@ -178,6 +238,15 @@ export default function ProgressPage() {
             </div>
           </div>
         </section>
+
+        {/* Streak Card Section */}
+        {user && (
+          <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div className="max-w-7xl mx-auto">
+              <StreakCard userId={user.id} />
+            </div>
+          </section>
+        )}
 
         {/* Stats Summary */}
         {entries.length > 0 && (
